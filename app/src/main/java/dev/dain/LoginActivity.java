@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
 
     //asfasfassgf
     //asfasfafafsfd
-    
+
 	private enum PendingAction {
 		NONE, POST_STATUS_UPDATE;
 	}
