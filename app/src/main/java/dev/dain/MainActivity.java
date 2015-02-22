@@ -1,6 +1,8 @@
 package dev.dain;
 
 import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -119,7 +121,13 @@ public class MainActivity extends ActionBarActivity {
                 sms
          */
 //        smsReceiver
+        smsReceiver = new SmsReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
+        intentFilter.addAction("android.provider.Telephony.SMS_RECEIVED");
 
+        registerReceiver(smsReceiver, intentFilter);
 
 		mList = (ExpandableListView) findViewById(R.id.list);
 		List<Map<String, String>> cafeData = new ArrayList<Map<String, String>>();
