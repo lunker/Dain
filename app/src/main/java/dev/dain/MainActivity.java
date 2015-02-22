@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -68,11 +69,11 @@ public class MainActivity extends ActionBarActivity {
 
 		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목
 		mSideList = getResources().getStringArray(R.array.side_array);
-//		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 //		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-//		mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-//				R.layout.drawer_list_item, mSideList));
+		mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
+				R.layout.drawer_list_item, mSideList));
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
