@@ -78,6 +78,10 @@ public class MainActivity extends ActionBarActivity {
 				R.layout.drawer_list_item, mSideList));
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+
+
+
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -106,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
 
 
         dtToggle = new ActionBarDrawerToggle(this, dlDrawer, R.string.app_name, R.string.app_name);
+        dtToggle.setDrawerIndicatorEnabled(true);
         dlDrawer.setDrawerListener(dtToggle);
 		// 확장리스트
 
@@ -155,7 +160,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		if (mDrawToggle.onOptionsItemSelected(item))
+		if (dtToggle.onOptionsItemSelected(item))
 			return true;
 		return super.onOptionsItemSelected(item);
 	}
