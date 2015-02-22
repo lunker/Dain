@@ -1,5 +1,6 @@
 package dev.dain;
 
+import android.content.BroadcastReceiver;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -25,6 +26,7 @@ import java.util.Map;
 
 import dev.dain.library.SlidingTabLayout;
 import dev.dain.library.ViewPagerAdapter;
+import dev.dain.sms.SmsReceiver;
 
 public class MainActivity extends ActionBarActivity {
 	MenuItem mSearch;
@@ -50,16 +52,16 @@ public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar = null;
 
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    CharSequence Titles[]={"Home","평가하기","랭킹","할인&이벤트"};
-    int Numboftabs =4;
+    private ViewPager pager;
+    private ViewPagerAdapter adapter;
+    private SlidingTabLayout tabs;
+    private CharSequence Titles[]={"Home","평가하기","랭킹","할인&이벤트"};
+    private int Numboftabs =4;
 
-    DrawerLayout dlDrawer;
-    ActionBarDrawerToggle dtToggle;
+    private DrawerLayout dlDrawer;
+    private ActionBarDrawerToggle dtToggle;
 
-
+    private SmsReceiver smsReceiver = null;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +77,6 @@ public class MainActivity extends ActionBarActivity {
 		mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
 				R.layout.drawer_list_item, mSideList));
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,7 +108,14 @@ public class MainActivity extends ActionBarActivity {
         dtToggle = new ActionBarDrawerToggle(this, dlDrawer, R.string.app_name, R.string.app_name);
         dlDrawer.setDrawerListener(dtToggle);
 		// 확장리스트
-		
+
+
+        /*
+                sms
+         */
+//        smsReceiver
+
+
 		mList = (ExpandableListView) findViewById(R.id.list);
 		List<Map<String, String>> cafeData = new ArrayList<Map<String, String>>();
 		List<List<Map<String, String>>> detailData = new ArrayList<List<Map<String, String>>>();

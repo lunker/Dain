@@ -90,7 +90,7 @@ public class RatingFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String[] myDataset = {"1", "2", "3"};
+        String[] myDataset = {"1", "2", "3","4","5"};
 
         mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
