@@ -31,6 +31,9 @@ public class LoginActivity extends Activity {
 	Button email_login;
 	Button sign_up;
 
+
+    //asfasfassgf
+    //asfasfafafsfd
 	private enum PendingAction {
 		NONE, POST_STATUS_UPDATE;
 	}
