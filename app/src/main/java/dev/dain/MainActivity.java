@@ -1,22 +1,15 @@
 package dev.dain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -24,7 +17,15 @@ import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
 
-public class Main extends Activity {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import dev.dain.library.SlidingTabLayout;
+import dev.dain.library.ViewPagerAdapter;
+
+public class MainActivity extends ActionBarActivity {
 	MenuItem mSearch;
 	TabHost mTab;
 
@@ -45,58 +46,66 @@ public class Main extends Activity {
 			{ "음료", "푸드", "전체보기", "베스트10평가" },
 			{ "음료", "푸드", "전체보기", "베스트10평가" } };
 
-	@Override
+
+    private Toolbar toolbar = null;
+
+    ViewPager pager;
+    ViewPagerAdapter adapter;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"Home",""};
+    int Numboftabs =2;
+
+    DrawerLayout dlDrawer;
+    ActionBarDrawerToggle dtToggle;
+
+
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.left_menu);
+		setContentView(R.layout.layout_activity_main);
 
 		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목
 		mSideList = getResources().getStringArray(R.array.side_array);
+//		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+//		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		contentMain = (FrameLayout) findViewById(R.id.content_frame);
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//		mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
+//				R.layout.drawer_list_item, mSideList));
+//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		mDrawerList.setAdapter(new ArrayAdapter<String>(Main.this,
-				R.layout.drawer_list_item, mSideList));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		// getActionBar().setDisplayHomeAsUpEnabled(true);
-		// getActionBar().setHomeButtonEnabled(true);
 
-		mDrawToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.drawer_open,
-				R.string.drawer_close) {
-			public void onDrawerClosed(View drawerView) {
-				super.onDrawerClosed(drawerView);
-			}
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-			public void onDrawerOpened(View drawerView) {
-				super.onDrawerOpened(drawerView);
-			}
-		};
-		mDrawerLayout.setDrawerListener(mDrawToggle);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		/*
-		 * if (savedInstanceState == null) { selectItem(0); }
-		 */
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
-		mTab = (TabHost) findViewById(android.R.id.tabhost);
-		mTab.setup();
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
 
-		mTab.addTab(mTab.newTabSpec("tag").setIndicator("Home")
-				.setContent(R.id.tab1));
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-		mTab.addTab(mTab.newTabSpec("tag").setIndicator("평가하기")
-				.setContent(R.id.tab2));
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.accent);
+            }
+        });
 
-		mTab.addTab(mTab.newTabSpec("tag").setIndicator("다인랭킹")
-				.setContent(R.id.tab3));
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
 
-		mTab.addTab(mTab.newTabSpec("tag").setIndicator("할인/이벤트")
-				.setContent(R.id.tab4));
-		
+
+        dtToggle = new ActionBarDrawerToggle(this, dlDrawer, R.string.app_name, R.string.app_name);
+        dlDrawer.setDrawerListener(dtToggle);
 		// 확장리스트
 		
 		mList = (ExpandableListView) findViewById(R.id.list);
@@ -122,22 +131,16 @@ public class Main extends Activity {
 				new String[] { "cafe" }, new int[] { android.R.id.text1 },
 				detailData, android.R.layout.simple_expandable_list_item_1,
 				new String[] { "details" }, new int[] { android.R.id.text1 });
-		mList.setAdapter(adapter);
+//		mList.setAdapter(adapter);
 	}
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onPostCreate(savedInstanceState);
-		mDrawToggle.syncState();
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.dain, menu);
+		inflater.inflate(R.menu.menu_main, menu);
 		return true;
 	}
 
@@ -149,12 +152,21 @@ public class Main extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
-		super.onConfigurationChanged(newConfig);
-		mDrawToggle.onConfigurationChanged(newConfig);
-	}
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+// Sync the toggle state after onRestoreInstanceState has occurred.
+        dtToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        dtToggle.onConfigurationChanged(newConfig);
+    }
+    /*
 
 	private class DrawerItemClickListener implements
 			ListView.OnItemClickListener {
@@ -174,12 +186,6 @@ public class Main extends Activity {
 			mDrawerLayout.closeDrawer(mDrawerList);
 		}
 	}
-	/*
-	 * private void selectItem(int position) {
-	 * 
-	 * }
-	 * 
-	 * public void setTitle(CharSequence title) { mTitle = title;
-	 * getActionBar().setTitle(mTitle); }
-	 */
+	*/
+
 }
