@@ -52,8 +52,8 @@ public class MainActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Home",""};
-    int Numboftabs =2;
+    CharSequence Titles[]={"Home","평가하기","랭킹","할인&이벤트"};
+    int Numboftabs =4;
 
     DrawerLayout dlDrawer;
     ActionBarDrawerToggle dtToggle;

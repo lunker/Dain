@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import dev.dain.event.EventFragment;
 import dev.dain.home.HomeFragment;
+import dev.dain.ranking.RankingFragment;
 import dev.dain.rating.RatingFragment;
 
 /**
@@ -33,18 +35,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if(position == 0) // if the position is 0 we are returning the First tab
-        {
-            HomeFragment tab1 = new HomeFragment();
-            return tab1;
-        }
-        else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            RatingFragment tab2 = new RatingFragment();
-            return tab2;
+        switch(position){
+
+            case 0 : HomeFragment tab1 = new HomeFragment();return tab1;
+            case 1 : RatingFragment tab2 = new RatingFragment();return tab2;
+            case 2 : RankingFragment tab3 = new RankingFragment(); return tab3;
+            case 3 : EventFragment tab4 = new EventFragment(); return tab4;
         }
 
-
+        return null;
     }
 
     // This method return the titles for the Tabs in the Tab Strip
