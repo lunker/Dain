@@ -3,6 +3,8 @@ package dev.dain.rating;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,12 @@ public class RatingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+
+    private View view = null;
+    private RecyclerView mRecyclerView = null;
+    private LinearLayoutManager mLayoutManager = null;
+    private RatingAdapter mAdapter = null;
 
     /**
      * Use this factory method to create a new instance of
@@ -60,8 +68,39 @@ public class RatingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.layout_fragment_rating, container, false);
+
+
+        if(view == null){
+            view =  inflater.inflate(R.layout.layout_fragment_rating, container, false);
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            mRecyclerView.setHasFixedSize(true);
+
+            // use a linear layout manager
+        }
+
+
+        return view;
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        String[] myDataset = {"1", "2", "3"};
+
+        mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        // specify an adapter (see also next example)
+        mAdapter = new RatingAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
+
+
+    }
 
 }
