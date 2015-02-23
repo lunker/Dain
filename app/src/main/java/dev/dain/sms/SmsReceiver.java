@@ -29,7 +29,7 @@ public class SmsReceiver extends BroadcastReceiver {
     private final String TAG = "dain";
     private Context context = null;
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
 
         this.context = context;
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())){
@@ -61,15 +61,24 @@ public class SmsReceiver extends BroadcastReceiver {
 
             if(message.contains("투썸") || message.contains("할리스")){
 
+                /*
                 Handler handle = new Handler();
                 handle.postDelayed(new Runnable() {
                     @Override
                     public void run() {
 
 
-                        makeNotification();
+//                        makeNotification();
+                        Intent dialogIntent = new Intent(context, NotificationActivity.class);
+                        context.startActivity(dialogIntent);
+
                     }
                 }, 900);
+
+                */
+                Intent dialogIntent = new Intent(context, NotificationActivity.class);
+                dialogIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(dialogIntent);
             }
 
         }
