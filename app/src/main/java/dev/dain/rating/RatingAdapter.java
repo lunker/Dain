@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context context;
 
 
+    private GridView grid = null;
+
     /*
         parent
      */
@@ -52,19 +57,120 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         child
      */
 
-    public static class ChildViewHolder extends  RecyclerView.ViewHolder {
+    public class ChildViewHolder extends  RecyclerView.ViewHolder {
 
+        public GridView gridView ;
         public ChildViewHolder(View v){
                 super(v);
+
+            gridView = (GridView) v.findViewById(R.id.grid_child_item);
+            gridView.setAdapter(new BaseAdapter() {
+
+
+                @Override
+                public int getCount() {
+                    return 4;
+                }
+
+                @Override
+                public Object getItem(int position) {
+                    return null;
+                }
+
+                @Override
+                public long getItemId(int position) {
+                    return position;
+                }
+
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+
+                    if(convertView == null){
+                        convertView = ( (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_grid_item, parent, false);
+                    }
+
+                    TextView gridItemTitle = (TextView) convertView.findViewById(R.id.grid_item_title);
+
+
+                    switch (position){
+                        case 0:
+                            gridItemTitle.setText("Drink");
+                            break;
+                        case 1:
+                            gridItemTitle.setText("Dessert");
+                            break;
+                        case 2:
+                            gridItemTitle.setText("Best 10");
+                            break;
+                        case 3:
+                            gridItemTitle.setText("All");
+                            break;
+                    }
+
+                    return convertView;
+                }
+            });
         }
     }
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RatingAdapter(ArrayList<Boolean> myDataset, Context context) {
+    public RatingAdapter(ArrayList<Boolean> myDataset, final Context context) {
         mDataSet = myDataset;
-        childCardView = (CardView) ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                inflate(R.layout.layout_fragment_rating_double_item, null);
+        this.context = context;
+//        childCardView = (CardView) ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+//                inflate(R.layout.layout_fragment_rating_double_item, null);
+//
+//        grid = (GridView) ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+//                inflate(R.layout.layout_gridview, null);
+//        grid.setAdapter(new BaseAdapter() {
+//
+//
+//            @Override
+//            public int getCount() {
+//                return 4;
+//            }
+//
+//            @Override
+//            public Object getItem(int position) {
+//                return null;
+//            }
+//
+//            @Override
+//            public long getItemId(int position) {
+//                return position;
+//            }
+//
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//
+//
+//                if(convertView == null){
+//                    convertView = ( (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_grid_item, parent, false);
+//
+//                }
+//
+//                TextView gridItemTitle = (TextView) convertView.findViewById(R.id.grid_item_title);
+//
+//
+//                switch (position){
+//                    case 0:
+//                        gridItemTitle.setText("Drink");
+//                        break;
+//                    case 1:
+//                        gridItemTitle.setText("Dessert");
+//                        break;
+//                    case 2:
+//                        gridItemTitle.setText("Best 10");
+//                        break;
+//                    case 3:
+//                        gridItemTitle.setText("All");
+//                        break;
+//                }
+//
+//                return convertView;
+//            }
+//        });
     }
 
     // Create new views (invoked by the layout manager)
@@ -75,16 +181,14 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         Log.v(TAG, "view type???: " + viewType);
 
-
-        // set the view's size, margins, paddings and layout parameters
-
         switch (viewType){
             case 1 :
                 // child
 
-                View childView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.layout_fragment_rating_double_item, parent, false);
-
+              View childView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.layout_gridview, parent, false);
+//                View childView = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.layout_fragment_rating_double_item2, parent, false);
 
                 return new ChildViewHolder(childView);
             case 0 :
@@ -117,10 +221,33 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         switch(holder.getItemViewType()){
             case 1:
+                // set child view content
+
+                ((ChildViewHolder)holder).gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                        Log.v(TAG,"[GridView] " + position +" clicked! ");
+
+                        switch (position){
+                            case 0:
+
+                                break;
+                            case 1: break;
+                            case 2: break;
+                            case 3: break;
+
+                        }
+
+
+                    }
+                });
 
                 break;
 
             case 0:
+                // set parent view content
                 ((ParentViewHolder)holder).mTextView.setText("parent : " + position);
                 break;
 

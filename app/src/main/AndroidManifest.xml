@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dev.dain">
+    package="dev.dain" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -10,11 +10,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyTheme">
+        android:theme="@style/MyTheme" >
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,19 +29,17 @@
             android:label="@string/signup"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name="com.facebook.LoginActivity" />
-
         <activity
             android:name=".sms.NotificationActivity"
             android:label="@string/title_activity_notification"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
 
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <receiver android:name=".sms.SmsReceiver">
-            <intent-filter android:priority="9999">
+        <receiver android:name=".sms.SmsReceiver" >
+            <intent-filter android:priority="9999" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
@@ -50,9 +48,24 @@
         <service
             android:name=".sms.SmsService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
-
+        <activity
+            android:name=".rating.AllProductListActivity"
+            android:label="@string/title_activity_all_product_list" >
+        </activity>
+        <activity
+            android:name=".rating.BestProductActivity"
+            android:label="@string/title_activity_best_product" >
+        </activity>
+        <activity
+            android:name=".rating.BeverageActivity"
+            android:label="@string/title_activity_beverage" >
+        </activity>
+        <activity
+            android:name=".rating.ProductInfoActivity"
+            android:label="@string/title_activity_product_info" >
+        </activity>
     </application>
 
 </manifest>

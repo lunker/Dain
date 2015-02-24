@@ -100,7 +100,6 @@ public class RatingFragment extends Fragment {
         myDataset.add(false);
         myDataset.add(false);
 
-
         mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -116,16 +115,13 @@ public class RatingFragment extends Fragment {
                         Log.v(TAG, "cardview selected! in add on item ");
 
 
-
-//                        if(mRecyclerView.getChildViewHolder(view).equals(RatingAdapter.ChildViewHolder)){
-//                            ;
-//                            return ;
-//                        }
-
-
                         // click the child view.
                         if( position == expandedLocaition){
-                            return ;
+//                            mAdapter.removeItem(position,true);
+                            //?
+                        }
+                        else if( (expandedLocaition-1) == position ){
+                            mAdapter.removeItem(position,true);
                         }
                         else if(expandedLocaition == -1){
                             mAdapter.addItem(position+1, true);
