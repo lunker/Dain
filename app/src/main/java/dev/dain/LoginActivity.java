@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if (v.getId() == R.id.sign_up) {
-				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
 				startActivity(intent);
 			}
 

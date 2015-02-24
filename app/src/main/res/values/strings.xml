@@ -7,6 +7,7 @@
     <string name="facebook_app_id">818015861617032</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="signup">회원가입</string>
 
     <string-array name="side_array">
         <item>공지사항</item>

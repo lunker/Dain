@@ -21,16 +21,9 @@ public class NotificationActivity extends ActionBarActivity {
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-
-
-
         setContentView(R.layout.layout_activity_notification);
 
-
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

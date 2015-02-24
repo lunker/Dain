@@ -5,9 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+
+import java.util.ArrayList;
 
 import dev.dain.R;
 
@@ -17,6 +22,8 @@ import dev.dain.R;
  * create an instance of this fragment.
  */
 public class RatingFragment extends Fragment {
+
+    private final String TAG = "dain";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +39,7 @@ public class RatingFragment extends Fragment {
     private RecyclerView mRecyclerView = null;
     private LinearLayoutManager mLayoutManager = null;
     private RatingAdapter mAdapter = null;
-
+    private int expandedLocaition = -1;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -65,10 +72,8 @@ public class RatingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
 
         if(view == null){
             view =  inflater.inflate(R.layout.layout_fragment_rating, container, false);
@@ -76,11 +81,8 @@ public class RatingFragment extends Fragment {
 
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
-            mRecyclerView.setHasFixedSize(true);
-
-            // use a linear layout manager
+//            mRecyclerView.setHasFixedSize(true);
         }
-
 
         return view;
     }
@@ -90,14 +92,70 @@ public class RatingFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String[] myDataset = {"1", "2", "3","4","5"};
+        ArrayList<Boolean> myDataset = new ArrayList<Boolean>();
+        myDataset.add(false);
+        myDataset.add(false);
+        myDataset.add(false);
+        myDataset.add(false);
+        myDataset.add(false);
+        myDataset.add(false);
+
 
         mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new RatingAdapter(myDataset);
+        mAdapter = new RatingAdapter(myDataset, getActivity().getBaseContext());
         mRecyclerView.setAdapter(mAdapter);
+
+
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // do whatever
+                        Log.v(TAG, "cardview selected! in add on item ");
+
+
+
+//                        if(mRecyclerView.getChildViewHolder(view).equals(RatingAdapter.ChildViewHolder)){
+//                            ;
+//                            return ;
+//                        }
+
+
+                        // click the child view.
+                        if( position == expandedLocaition){
+                            return ;
+                        }
+                        else if(expandedLocaition == -1){
+                            mAdapter.addItem(position+1, true);
+                            expandedLocaition = position+1;
+                        }
+                        else if( (position+1) == expandedLocaition ){
+                            return ;
+                        }
+                        else{
+
+                            if(expandedLocaition < position ){
+                                mAdapter.removeItem(expandedLocaition,true);
+                                mAdapter.addItem(position,true);
+                                expandedLocaition = position;
+
+                            }
+                            else{
+                                mAdapter.removeItem(expandedLocaition, true);
+                                mAdapter.addItem(position+1,true);
+                                expandedLocaition = position +1;
+                            }
+
+                        }//end else
+
+//                        expandedLocaition = position
+
+                    }
+                })
+        );
+
 
 
 
