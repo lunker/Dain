@@ -23,21 +23,14 @@ public class BeverageActivity extends ActionBarActivity {
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
-
-
     }
-
-
-//    setsuppo
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        this.overridePendingTransition(R.anim.left_to_right,
-                android.R.anim.slide_out_right);
+        this.overridePendingTransition(R.anim.trans_right_in,
+                R.anim.trans_left_out);
     }
 
     @Override

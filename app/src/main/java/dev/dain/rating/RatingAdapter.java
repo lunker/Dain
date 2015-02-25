@@ -28,12 +28,13 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final String TAG = "dain";
 //    private boolean[] mDataSet;
     private ArrayList<Boolean> mDataSet;
+    private int expandedLocaition = -1;
+    private boolean isExpandedAll = false;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
-    private CardView childCardView = null;
     private Context context;
 
 
@@ -46,6 +47,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         // each data item is just a string in this case
         public TextView mTextView;
         public CardView cardView ;
+        public boolean isExpanded = false;
 
         public ParentViewHolder(View v) {
             super(v);
@@ -92,7 +94,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                     TextView gridItemTitle = (TextView) convertView.findViewById(R.id.grid_item_title);
 
-
                     switch (position){
                         case 0:
                             gridItemTitle.setText("Drink");
@@ -131,13 +132,10 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         case 3: break;
 
                     }
-
-
                 }
             });
         }
     }
-
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public RatingAdapter(ArrayList<Boolean> myDataset, final Context context) {
@@ -158,9 +156,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 // child
               View childView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.layout_gridview, parent, false);
-//                View childView = LayoutInflater.from(parent.getContext())
-//                        .inflate(R.layout.layout_fragment_rating_double_item2, parent, false);
-
                 return new ChildViewHolder(childView);
             case 0 :
                 // parent
@@ -185,10 +180,9 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-//        holder.mTextView.setText(position + "" );
 
         switch(holder.getItemViewType()){
             case 1:
@@ -212,8 +206,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             case 3: break;
 
                         }
-
-
                     }
                 });
 
@@ -221,7 +213,49 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             case 0:
                 // set parent view content
+                final ParentViewHolder pHolder = (ParentViewHolder) holder;
                 ((ParentViewHolder)holder).mTextView.setText("parent : " + position);
+
+                ((ParentViewHolder)holder).cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(isExpandedAll){
+                            if(position == (expandedLocaition -1 )){
+
+                                removeItem(expandedLocaition,true);
+                                expandedLocaition = -1;
+                                isExpandedAll = false;
+
+                            }
+                            else if( (position+1) == expandedLocaition ){
+                                /*
+                                    click the child view
+                                 */
+                                return ;
+                            }
+                            else{
+                                if(expandedLocaition < position ){
+                                    removeItem(expandedLocaition,true);
+                                    addItem(position,true);
+                                    expandedLocaition = position;
+
+                                }
+                                else{
+                                    removeItem(expandedLocaition, true);
+                                    addItem(position+1,true);
+                                    expandedLocaition = position +1;
+                                }
+                            }//end else
+
+                        }
+                        else{
+                            addItem(position+1, true);
+                            expandedLocaition = position+1;
+                            isExpandedAll = true;
+                        }
+                    }
+                });
                 break;
 
         }
