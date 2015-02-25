@@ -31,11 +31,6 @@ public class LoginActivity extends Activity {
 	Button email_login;
 	Button sign_up;
 
-//fhfftt5454
-    //asfasfassgf
-    //asfasfafafsfd
-
-    // ㅅㅡㄹㅜㅔㄱㅣㄴㅁㄹㄴㅁㅇㄹㄴㅇㅁㄹㄴㅇ
 	private enum PendingAction {
 		NONE, POST_STATUS_UPDATE;
 	}
@@ -164,8 +159,12 @@ public class LoginActivity extends Activity {
 	private void updateUI() {
 		Session session = Session.getActiveSession();
 		
-		  if(session.isOpened()) { Intent intent = new
-		  Intent(LoginActivity.this, MainActivity.class); startActivity(intent); }
+		  if(session.isOpened()) {
+              Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+              intent.putExtra("facebookId",user.getId());
+              intent.putExtra("facebookName",user.getUsername());
+              startActivity(intent);
+          }
 		 
 	}
 

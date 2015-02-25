@@ -65,19 +65,30 @@ public class MainActivity extends ActionBarActivity {
 
     private SmsReceiver smsReceiver = null;
 
+    String Facebook_id;
+    String Facebook_name;
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_activity_main);
 
+        //facebook_Id
+        Intent intent = getIntent();
+        Facebook_id=intent.getStringExtra("facebookId");
+        Facebook_name=intent.getStringExtra("facebookName");
+
+
 		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목
-		mSideList = getResources().getStringArray(R.array.side_array);
+		//mSideList = getResources().getStringArray(R.array.side_array);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 //		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-		mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-				R.layout.drawer_list_item, mSideList));
+        LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this,R.layout.left_menu_profile,Facebook_id,Facebook_name);
+        mDrawerList.setAdapter(leftmenuadapter);
+		//mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
+		//		R.layout.left_menu_profile, mSideList));
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -153,6 +164,9 @@ public class MainActivity extends ActionBarActivity {
 				detailData, android.R.layout.simple_expandable_list_item_1,
 				new String[] { "details" }, new int[] { android.R.id.text1 });
 //		mList.setAdapter(adapter);
+
+
+
 	}
 
 
