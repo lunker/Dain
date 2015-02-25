@@ -36,8 +36,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     // you provide access to all the views for a data item in a view holder
 
     private Context context;
-
-
     private GridView grid = null;
 
     /*
