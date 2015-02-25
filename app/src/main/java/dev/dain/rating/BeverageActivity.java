@@ -1,7 +1,9 @@
 package dev.dain.rating;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,12 +11,34 @@ import dev.dain.R;
 
 public class BeverageActivity extends ActionBarActivity {
 
+
+    private Toolbar toolbar = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_beverage);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_beverage);
+        setSupportActionBar(toolbar);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
+
     }
 
+
+//    setsuppo
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        this.overridePendingTransition(R.anim.left_to_right,
+                android.R.anim.slide_out_right);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,11 +54,15 @@ public class BeverageActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
+
+        switch (id){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_settings :
+                return super.onOptionsItemSelected(item);
+        }
+        return false;
     }
 }

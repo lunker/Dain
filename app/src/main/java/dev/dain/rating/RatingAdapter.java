@@ -5,6 +5,7 @@ package dev.dain.rating;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -110,6 +111,30 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     return convertView;
                 }
             });
+
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                    Log.v(TAG,"[GridView] " + position +" clicked in constructor ");
+
+                    switch (position){
+                        case 0:
+                            Intent beverageIntent = new Intent(context,  BeverageActivity.class);
+                            beverageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(beverageIntent);
+                            break;
+                        case 1: break;
+                        case 2: break;
+                        case 3: break;
+
+                    }
+
+
+                }
+            });
         }
     }
 
@@ -118,59 +143,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RatingAdapter(ArrayList<Boolean> myDataset, final Context context) {
         mDataSet = myDataset;
         this.context = context;
-//        childCardView = (CardView) ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-//                inflate(R.layout.layout_fragment_rating_double_item, null);
-//
-//        grid = (GridView) ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-//                inflate(R.layout.layout_gridview, null);
-//        grid.setAdapter(new BaseAdapter() {
-//
-//
-//            @Override
-//            public int getCount() {
-//                return 4;
-//            }
-//
-//            @Override
-//            public Object getItem(int position) {
-//                return null;
-//            }
-//
-//            @Override
-//            public long getItemId(int position) {
-//                return position;
-//            }
-//
-//            @Override
-//            public View getView(int position, View convertView, ViewGroup parent) {
-//
-//
-//                if(convertView == null){
-//                    convertView = ( (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_grid_item, parent, false);
-//
-//                }
-//
-//                TextView gridItemTitle = (TextView) convertView.findViewById(R.id.grid_item_title);
-//
-//
-//                switch (position){
-//                    case 0:
-//                        gridItemTitle.setText("Drink");
-//                        break;
-//                    case 1:
-//                        gridItemTitle.setText("Dessert");
-//                        break;
-//                    case 2:
-//                        gridItemTitle.setText("Best 10");
-//                        break;
-//                    case 3:
-//                        gridItemTitle.setText("All");
-//                        break;
-//                }
-//
-//                return convertView;
-//            }
-//        });
     }
 
     // Create new views (invoked by the layout manager)
@@ -184,7 +156,6 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         switch (viewType){
             case 1 :
                 // child
-
               View childView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.layout_gridview, parent, false);
 //                View childView = LayoutInflater.from(parent.getContext())
@@ -232,7 +203,9 @@ public class RatingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
                         switch (position){
                             case 0:
-
+                                Intent beverageIntent = new Intent(context,  BeverageActivity.class);
+                                beverageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(beverageIntent);
                                 break;
                             case 1: break;
                             case 2: break;
