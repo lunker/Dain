@@ -1,22 +1,28 @@
 package dev.dain;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
@@ -68,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
     String Facebook_id;
     String Facebook_name;
 
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -78,6 +85,8 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = getIntent();
         Facebook_id=intent.getStringExtra("facebookId");
         Facebook_name=intent.getStringExtra("facebookName");
+        //
+
 
 
 		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목

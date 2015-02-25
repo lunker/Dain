@@ -1,6 +1,10 @@
 package dev.dain;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +55,14 @@ public class LeftMenuAdapter extends BaseAdapter {
 
         TextView pf_name = (TextView) convertView.findViewById(R.id.pf_name);
         TextView pf_id = (TextView) convertView.findViewById(R.id.pf_id);
-        ImageView pf_img=(ImageView)convertView.findViewById(R.id.pf_img);
+        ImageView pf_img =(ImageView)convertView.findViewById(R.id.pf_img);
+
+
         pf_id.setText(Facebook_id);
         pf_name.setText(Facebook_name);
+
+        BitmapDrawable bImage = (BitmapDrawable)maincon.getResources().getDrawable(R.drawable.dain);
+        pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
         return convertView;
     }
 }
