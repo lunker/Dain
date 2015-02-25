@@ -78,12 +78,10 @@ public class RatingFragment extends Fragment {
         if(view == null){
             view =  inflater.inflate(R.layout.layout_fragment_rating, container, false);
             mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
-
         }
 
         return view;
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -105,6 +103,7 @@ public class RatingFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
 
+        /*
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -116,7 +115,6 @@ public class RatingFragment extends Fragment {
                         if( position == expandedLocaition){
                             ;
                             RatingAdapter.ChildViewHolder holder = (RatingAdapter.ChildViewHolder)mRecyclerView.getChildViewHolder(view);
-//                            holder.gridView.dispatch
 
                         }
                         else if( (expandedLocaition-1) == position ){
@@ -131,7 +129,6 @@ public class RatingFragment extends Fragment {
                             return ;
                         }
                         else{
-
                             if(expandedLocaition < position ){
                                 mAdapter.removeItem(expandedLocaition,true);
                                 mAdapter.addItem(position,true);
@@ -148,9 +145,7 @@ public class RatingFragment extends Fragment {
                     }
                 })
         );
-
-
-
+        */
 
     }
 
