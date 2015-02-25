@@ -63,6 +63,7 @@ public class LeftMenuAdapter extends BaseAdapter {
 
         BitmapDrawable bImage = (BitmapDrawable)maincon.getResources().getDrawable(R.drawable.dain);
         pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
+
         return convertView;
     }
 }
