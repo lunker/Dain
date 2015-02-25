@@ -162,7 +162,7 @@ public class LoginActivity extends Activity {
 		  if(session.isOpened()) {
               Intent intent = new Intent(LoginActivity.this, MainActivity.class);
               intent.putExtra("facebookId",user.getId());
-              intent.putExtra("facebookName",user.getUsername());
+              intent.putExtra("facebookName",user.getName());
               startActivity(intent);
           }
 		 
