@@ -79,9 +79,6 @@ public class RatingFragment extends Fragment {
             view =  inflater.inflate(R.layout.layout_fragment_rating, container, false);
             mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-//            mRecyclerView.setHasFixedSize(true);
         }
 
         return view;
@@ -100,7 +97,6 @@ public class RatingFragment extends Fragment {
         myDataset.add(false);
         myDataset.add(false);
 
-
         mLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -116,16 +112,16 @@ public class RatingFragment extends Fragment {
                         Log.v(TAG, "cardview selected! in add on item ");
 
 
-
-//                        if(mRecyclerView.getChildViewHolder(view).equals(RatingAdapter.ChildViewHolder)){
-//                            ;
-//                            return ;
-//                        }
-
-
                         // click the child view.
                         if( position == expandedLocaition){
-                            return ;
+                            ;
+                            RatingAdapter.ChildViewHolder holder = (RatingAdapter.ChildViewHolder)mRecyclerView.getChildViewHolder(view);
+//                            holder.gridView.dispatch
+
+                        }
+                        else if( (expandedLocaition-1) == position ){
+                            mAdapter.removeItem(position,true);
+                            expandedLocaition = -1;
                         }
                         else if(expandedLocaition == -1){
                             mAdapter.addItem(position+1, true);
@@ -147,10 +143,7 @@ public class RatingFragment extends Fragment {
                                 mAdapter.addItem(position+1,true);
                                 expandedLocaition = position +1;
                             }
-
                         }//end else
-
-//                        expandedLocaition = position
 
                     }
                 })

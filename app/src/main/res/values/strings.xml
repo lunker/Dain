@@ -19,5 +19,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_all_product_list">AllProductListActivity</string>
+    <string name="title_activity_best_product">BestProductActivity</string>
+    <string name="title_activity_beverage">BeverageActivity</string>
+    <string name="title_activity_product_info">ProductInfoActivity</string>
 
 </resources>
