@@ -1,4 +1,4 @@
-package com.dain;
+package dev.dain;
 
 
 public class UserProfile {

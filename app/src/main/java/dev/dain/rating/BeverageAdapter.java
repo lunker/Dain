@@ -54,10 +54,8 @@ public class BeverageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
-
                     Log.v(TAG,"rating bar toucehd~! : "+ event.getX());
 
-//                    MotionEvent.Action
                     float width = beverageRating.getWidth();
                     float oneStarWidth = width / (float)5.0;
 
@@ -69,7 +67,6 @@ public class BeverageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     fadeOut.setFillAfter(true);
                     fadeOut.setStartOffset(600+fadeIn.getStartOffset());
                     switch(  (int)(event.getX() / oneStarWidth) ){
-
 
                         case 0 :
                             Log.v(TAG,"rating bar toucehd~ 0 ! ");
