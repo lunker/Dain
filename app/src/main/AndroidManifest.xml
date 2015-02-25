@@ -46,10 +46,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".sms.SmsService"
-            android:enabled="true"
-            android:exported="false" />
 
         <activity
             android:name=".rating.AllProductListActivity"
