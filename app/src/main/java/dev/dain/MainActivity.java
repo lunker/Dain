@@ -1,13 +1,15 @@
 package dev.dain;
 
-import android.content.BroadcastReceiver;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -74,7 +76,10 @@ public class MainActivity extends ActionBarActivity {
     String Facebook_id;
     String Facebook_name;
 
+    private static final int PICK_FROM_CAMERA = 0;
+    private static final int PICK_FROM_ALBUM = 1;
 
+    ImageView pf_img;
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -87,7 +92,10 @@ public class MainActivity extends ActionBarActivity {
         Facebook_name=intent.getStringExtra("facebookName");
         //
 
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view =inflater.inflate(R.layout.left_menu_profile,null);
 
+        pf_img=(ImageView)view.findViewById(R.id.pf_img);
 
 		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목
 		//mSideList = getResources().getStringArray(R.array.side_array);
@@ -178,6 +186,69 @@ public class MainActivity extends ActionBarActivity {
 
 	}
 
+
+    public void mOnClick(View v)
+    {
+        if(v.getId()==R.id.pf_img)
+        {
+            new AlertDialog.Builder(this)
+            .setTitle("사진선택").setItems(R.array.select_picture, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if(which==0)
+                    {
+                        doTakeAlbumAction();
+                        dialog.dismiss();
+                    }
+                    else if(which==1)
+                    {
+                        doTakePhotoAction();
+                        dialog.dismiss();
+                    }
+
+                }
+            }).show();
+
+        }
+    }
+    private void doTakePhotoAction()
+    {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, PICK_FROM_CAMERA);
+
+    }
+    private void doTakeAlbumAction()
+    {
+        // 앨범 호출
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent,PICK_FROM_ALBUM);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==PICK_FROM_CAMERA){
+            Bundle extras = data.getExtras();
+            if(extras!=null)
+            {
+                Bitmap photo = extras.getParcelable("data");
+                pf_img.setImageBitmap(photo);
+
+            }
+        }
+        if(requestCode==PICK_FROM_ALBUM)
+        {
+            Bundle extras=data.getExtras();
+            if(extras!=null)
+            {
+                Bitmap photo = extras.getParcelable("data");
+                pf_img.setImageBitmap(photo);
+            }
+        }
+
+
+
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
