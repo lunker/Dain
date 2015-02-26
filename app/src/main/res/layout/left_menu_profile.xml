@@ -27,7 +27,7 @@
             android:layout_height="75dp"
             android:id="@+id/pf_img"
             android:onClick="mOnClick"
-            android:src="@drawable/dain"
+
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/informations_container"
             android:layout_marginBottom="-16dp"

@@ -1,15 +1,20 @@
 package dev.dain;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -27,9 +32,16 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -105,6 +117,8 @@ public class MainActivity extends ActionBarActivity {
         pf_img = (ImageView) view.findViewById(R.id.pf_img);
 
 
+        String Facebook_pf_url="https://graph.facebook.com/"+Facebook_id+"picture";
+
         // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
         //mSideList = getResources().getStringArray(R.array.side_array);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -119,6 +133,7 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
@@ -258,7 +273,7 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.dain, menu);
         return true;
     }
 
@@ -284,6 +299,8 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         dtToggle.onConfigurationChanged(newConfig);
     }
+
+
     /*
 
 	private class DrawerItemClickListener implements
