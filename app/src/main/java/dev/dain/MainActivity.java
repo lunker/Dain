@@ -98,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
+    Bitmap pf_bit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,7 +258,7 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == PICK_FROM_ALBUM) {
 
             try {
-                pf_img.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
+                 pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                 ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
             } catch (Exception e) {
                 ;

@@ -81,8 +81,8 @@ public class LeftMenuAdapter extends BaseAdapter {
         pf_name.setText(Facebook_name);
 
         (new DownThread("https://graph.facebook.com/"+Facebook_id+"/picture")).start();
+      
 
-        //pf_img.setImageResource(R.drawable.dain);
         //이미지 둥글게
        BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
         pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
@@ -116,6 +116,7 @@ public class LeftMenuAdapter extends BaseAdapter {
         public void handleMessage(Message msg)
         {
             Bitmap bit = (Bitmap)msg.obj;
+            bit=Bitmap.createScaledBitmap(bit,75,75,true);
             if(bit==null)
             {
 
@@ -129,5 +130,14 @@ public class LeftMenuAdapter extends BaseAdapter {
             }
         }
     };
-
+    class ImageChange
+    {
+        Bitmap bit_img;
+        int mValue;
+        public ImageChange(Bitmap bit, int value)
+        {
+            bit_img=bit;
+            mValue=value;
+        }
+    }
 }
