@@ -30,7 +30,7 @@ public class LoginActivity extends Activity {
 	EditText user_pw;
 	Button email_login;
 	Button sign_up;
-
+    public static Activity AActivity;
 	private enum PendingAction {
 		NONE, POST_STATUS_UPDATE;
 	}
@@ -60,6 +60,8 @@ public class LoginActivity extends Activity {
 			Log.d("HelloFacebook", "Success!");
 		}
 	};
+
+    private BackPressCloseHandler backPressCloseHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +93,14 @@ public class LoginActivity extends Activity {
 						updateUI();
 					}
 				});
-
+        backPressCloseHandler = new BackPressCloseHandler(this);
+        AActivity=LoginActivity.this;
 	}
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
+    }
 
 	private OnClickListener listener = new OnClickListener() {
 
