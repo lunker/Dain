@@ -142,7 +142,6 @@ public class MainActivity extends ActionBarActivity {
         dlDrawer.setDrawerListener(dtToggle);
         // 확장리스트
 
-
         /*
                 sms
          */
