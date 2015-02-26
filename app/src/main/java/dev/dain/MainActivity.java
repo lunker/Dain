@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -80,6 +81,10 @@ public class MainActivity extends ActionBarActivity {
     private static final int PICK_FROM_ALBUM = 1;
 
     ImageView pf_img;
+    View view;
+
+    private BackPressCloseHandler backPressCloseHandler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +98,12 @@ public class MainActivity extends ActionBarActivity {
         Facebook_name = intent.getStringExtra("facebookName");
         //
 
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.left_menu_profile, null);
+       // LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //View view = inflater.inflate(R.layout.left_menu_profile, null);
 
+        view =(View)getLayoutInflater().inflate(R.layout.left_menu_profile,null);
         pf_img = (ImageView) view.findViewById(R.id.pf_img);
+
 
         // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
         //mSideList = getResources().getStringArray(R.array.side_array);
@@ -179,10 +186,16 @@ public class MainActivity extends ActionBarActivity {
                 detailData, android.R.layout.simple_expandable_list_item_1,
                 new String[]{"details"}, new int[]{android.R.id.text1});
 //		mList.setAdapter(adapter);
+        //뒤로가기 버튼
 
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
     }
 
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
+    }
 
     public void mOnClick(View v) {
         if (v.getId() == R.id.pf_img) {
@@ -220,30 +233,25 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK) {
-            if (requestCode == PICK_FROM_CAMERA) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    pf_img.setImageBitmap((Bitmap) data.getExtras().get("data"));
 
+        if (requestCode == PICK_FROM_CAMERA) {
+            pf_img.setImageBitmap((Bitmap)data.getExtras().get("data"));
+            ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
+        }
+        if (requestCode == PICK_FROM_ALBUM) {
 
-                }
-            }
-            if (requestCode == PICK_FROM_ALBUM) {
-                Bundle extras = data.getExtras();
-                if (extras != null) {
-                    try {
-                        pf_img.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
-                    } catch (Exception e) {
-                        ;
-                    }
-                }
-
+            try {
+                pf_img.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
+                ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
+            } catch (Exception e) {
+                ;
             }
         }
 
-
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

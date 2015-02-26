@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/header_imageview"
+        android:id="@+id/background_img"
         android:src="@drawable/background"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical"
-        android:layout_below="@+id/header_imageview"
+        android:layout_below="@+id/background_img"
         android:gravity="center"
         android:paddingTop="32dp"
         android:paddingBottom="32dp">
