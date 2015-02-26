@@ -39,25 +39,25 @@ import dev.dain.library.ViewPagerAdapter;
 import dev.dain.sms.SmsReceiver;
 
 public class MainActivity extends ActionBarActivity {
-	MenuItem mSearch;
-	TabHost mTab;
+    MenuItem mSearch;
+    TabHost mTab;
 
-	DrawerLayout mDrawerLayout; // 주기능
-	ListView mDrawerList; // 내용
-	ActionBarDrawerToggle mDrawToggle; // 주기능
-	FrameLayout contentMain;
-	// CharSequence mDrawerTitle; // ActionBar의 제목을 변경하기 위한 변수
-	// CharSequence mTitle; // ActionBar의 제목을 변경하기 위한 변수
-	String[] mSideList; // 사이드 내용
+    DrawerLayout mDrawerLayout; // 주기능
+    ListView mDrawerList; // 내용
+    ActionBarDrawerToggle mDrawToggle; // 주기능
+    FrameLayout contentMain;
+    // CharSequence mDrawerTitle; // ActionBar의 제목을 변경하기 위한 변수
+    // CharSequence mTitle; // ActionBar의 제목을 변경하기 위한 변수
+    String[] mSideList; // 사이드 내용
 
-	ExpandableListView mList;
-	String[] arCafe = new String[] { "StarBucks", "카페베네", "망고식스", "투썸플레이스",
-			"커피빈" };
-	String[][] arDetails = new String[][] { { "음료", "푸드", "전체보기", "베스트10평가" },
-			{ "음료", "푸드", "전체보기", "베스트10평가" },
-			{ "음료", "푸드", "전체보기", "베스트10평가" },
-			{ "음료", "푸드", "전체보기", "베스트10평가" },
-			{ "음료", "푸드", "전체보기", "베스트10평가" } };
+    ExpandableListView mList;
+    String[] arCafe = new String[]{"StarBucks", "카페베네", "망고식스", "투썸플레이스",
+            "커피빈"};
+    String[][] arDetails = new String[][]{{"음료", "푸드", "전체보기", "베스트10평가"},
+            {"음료", "푸드", "전체보기", "베스트10평가"},
+            {"음료", "푸드", "전체보기", "베스트10평가"},
+            {"음료", "푸드", "전체보기", "베스트10평가"},
+            {"음료", "푸드", "전체보기", "베스트10평가"}};
 
 
     private Toolbar toolbar = null;
@@ -65,8 +65,8 @@ public class MainActivity extends ActionBarActivity {
     private ViewPager pager;
     private ViewPagerAdapter adapter;
     private SlidingTabLayout tabs;
-    private CharSequence Titles[]={"Home","평가하기","랭킹","할인&이벤트"};
-    private int Numboftabs =4;
+    private CharSequence Titles[] = {"Home", "평가하기", "랭킹", "할인&이벤트"};
+    private int Numboftabs = 4;
 
     private DrawerLayout dlDrawer;
     private ActionBarDrawerToggle dtToggle;
@@ -80,36 +80,34 @@ public class MainActivity extends ActionBarActivity {
     private static final int PICK_FROM_ALBUM = 1;
 
     ImageView pf_img;
+
     @Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_activity_main);
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_activity_main);
 
         //facebook_Id
         Intent intent = getIntent();
-        Facebook_id=intent.getStringExtra("facebookId");
-        Facebook_name=intent.getStringExtra("facebookName");
+        Facebook_id = intent.getStringExtra("facebookId");
+        Facebook_name = intent.getStringExtra("facebookName");
         //
 
-        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view =inflater.inflate(R.layout.left_menu_profile,null);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.left_menu_profile, null);
 
-        pf_img=(ImageView)view.findViewById(R.id.pf_img);
+        pf_img = (ImageView) view.findViewById(R.id.pf_img);
 
-		// mTitle = mDrawerTitle = getTitle(); // 액션바 제목
-		//mSideList = getResources().getStringArray(R.array.side_array);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
+        //mSideList = getResources().getStringArray(R.array.side_array);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 //		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this,R.layout.left_menu_profile,Facebook_id,Facebook_name);
+        LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this, R.layout.left_menu_profile, Facebook_id, Facebook_name);
         mDrawerList.setAdapter(leftmenuadapter);
-		//mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-		//		R.layout.left_menu_profile, mSideList));
+        //mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
+        //		R.layout.left_menu_profile, mSideList));
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-
-
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -117,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
 
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
@@ -142,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
         dtToggle = new ActionBarDrawerToggle(this, dlDrawer, R.string.app_name, R.string.app_name);
         dtToggle.setDrawerIndicatorEnabled(true);
         dlDrawer.setDrawerListener(dtToggle);
-		// 확장리스트
+        // 확장리스트
 
 
         /*
@@ -157,51 +155,45 @@ public class MainActivity extends ActionBarActivity {
 
         registerReceiver(smsReceiver, intentFilter);
 
-		mList = (ExpandableListView) findViewById(R.id.list);
-		List<Map<String, String>> cafeData = new ArrayList<Map<String, String>>();
-		List<List<Map<String, String>>> detailData = new ArrayList<List<Map<String, String>>>();
+        mList = (ExpandableListView) findViewById(R.id.list);
+        List<Map<String, String>> cafeData = new ArrayList<Map<String, String>>();
+        List<List<Map<String, String>>> detailData = new ArrayList<List<Map<String, String>>>();
 
-		for (int i = 0; i < arCafe.length; i++) {
-			Map<String, String> Cafe = new HashMap<String, String>();
-			Cafe.put("cafe", arCafe[i]);
-			cafeData.add(Cafe);
+        for (int i = 0; i < arCafe.length; i++) {
+            Map<String, String> Cafe = new HashMap<String, String>();
+            Cafe.put("cafe", arCafe[i]);
+            cafeData.add(Cafe);
 
-			List<Map<String, String>> children = new ArrayList<Map<String, String>>();
+            List<Map<String, String>> children = new ArrayList<Map<String, String>>();
 
-			for (int j = 0; j < arDetails[i].length; j++) {
-				Map<String, String> Details = new HashMap<String, String>();
-				Details.put("details", arDetails[i][j]);
-				children.add(Details);
-			}
-			detailData.add(children);
-		}
-		ExpandableListAdapter adapter = new SimpleExpandableListAdapter(this,
-				cafeData, android.R.layout.simple_list_item_1,
-				new String[] { "cafe" }, new int[] { android.R.id.text1 },
-				detailData, android.R.layout.simple_expandable_list_item_1,
-				new String[] { "details" }, new int[] { android.R.id.text1 });
+            for (int j = 0; j < arDetails[i].length; j++) {
+                Map<String, String> Details = new HashMap<String, String>();
+                Details.put("details", arDetails[i][j]);
+                children.add(Details);
+            }
+            detailData.add(children);
+        }
+        ExpandableListAdapter adapter = new SimpleExpandableListAdapter(this,
+                cafeData, android.R.layout.simple_list_item_1,
+                new String[]{"cafe"}, new int[]{android.R.id.text1},
+                detailData, android.R.layout.simple_expandable_list_item_1,
+                new String[]{"details"}, new int[]{android.R.id.text1});
 //		mList.setAdapter(adapter);
 
 
+    }
 
-	}
 
-
-    public void mOnClick(View v)
-    {
-        if(v.getId()==R.id.pf_img)
-        {
+    public void mOnClick(View v) {
+        if (v.getId() == R.id.pf_img) {
             new AlertDialog.Builder(this)
-            .setTitle("사진선택").setItems(R.array.select_picture, new DialogInterface.OnClickListener() {
+                    .setTitle("사진선택").setItems(R.array.select_picture, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    if(which==0)
-                    {
+                    if (which == 0) {
                         doTakeAlbumAction();
                         dialog.dismiss();
-                    }
-                    else if(which==1)
-                    {
+                    } else if (which == 1) {
                         doTakePhotoAction();
                         dialog.dismiss();
                     }
@@ -211,61 +203,64 @@ public class MainActivity extends ActionBarActivity {
 
         }
     }
-    private void doTakePhotoAction()
-    {
+
+    private void doTakePhotoAction() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, PICK_FROM_CAMERA);
 
     }
-    private void doTakeAlbumAction()
-    {
+
+    private void doTakeAlbumAction() {
         // 앨범 호출
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
-        startActivityForResult(intent,PICK_FROM_ALBUM);
+        startActivityForResult(intent, PICK_FROM_ALBUM);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==PICK_FROM_CAMERA){
-            Bundle extras = data.getExtras();
-            if(extras!=null)
-            {
-                Bitmap photo = extras.getParcelable("data");
-                pf_img.setImageBitmap(photo);
+        if(resultCode==RESULT_OK) {
+            if (requestCode == PICK_FROM_CAMERA) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    pf_img.setImageBitmap((Bitmap) data.getExtras().get("data"));
+
+
+                }
+            }
+            if (requestCode == PICK_FROM_ALBUM) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    try {
+                        pf_img.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
+                    } catch (Exception e) {
+                        ;
+                    }
+                }
 
             }
         }
-        if(requestCode==PICK_FROM_ALBUM)
-        {
-            Bundle extras=data.getExtras();
-            if(extras!=null)
-            {
-                Bitmap photo = extras.getParcelable("data");
-                pf_img.setImageBitmap(photo);
-            }
-        }
-
 
 
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_main, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		if (dtToggle.onOptionsItemSelected(item))
-			return true;
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        if (dtToggle.onOptionsItemSelected(item))
+            return true;
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
