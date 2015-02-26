@@ -35,6 +35,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
@@ -117,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
         pf_img = (ImageView) view.findViewById(R.id.pf_img);
 
 
-        String Facebook_pf_url="https://graph.facebook.com/"+Facebook_id+"picture";
+
 
         // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
         //mSideList = getResources().getStringArray(R.array.side_array);
@@ -204,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
         //뒤로가기 버튼
 
         backPressCloseHandler = new BackPressCloseHandler(this);
-
+       // (new DownThread("https://graph.facebook.com/dhha22/picture?type=large")).start();
     }
 
     @Override
@@ -299,9 +300,8 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         dtToggle.onConfigurationChanged(newConfig);
     }
+/*
 
-
-    /*
 
 	private class DrawerItemClickListener implements
 			ListView.OnItemClickListener {
