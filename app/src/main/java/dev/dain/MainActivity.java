@@ -38,11 +38,13 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,8 +100,8 @@ public class MainActivity extends ActionBarActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
 
-    Bitmap pf_bit;
 
+    int value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -258,7 +260,24 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == PICK_FROM_ALBUM) {
 
             try {
-                 pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                String path="data/data/dev.dain/files/profile.png";
+                value=1;
+
+                Bitmap pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                try {
+                    File file = new File("profile.png");
+                    FileOutputStream fos = openFileOutput("profile.png", 0);
+                    pf_bit.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                    Toast.makeText(this,"이미지 파일이 있습니다",0).show();
+                }catch (Exception e)
+                {
+                    Toast.makeText(this,"이미지 파일이 없습니다",0).show();
+                }
+                SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
+                pref.savePreferences("imagepath",path);
+                pref.savePreferences("value",value);
                 ((LeftMenuAdapter) mDrawerList.getAdapter()).notifyDataSetChanged();
             } catch (Exception e) {
                 ;

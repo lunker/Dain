@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ public class LeftMenuAdapter extends BaseAdapter {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     ImageView pf_img;
-    int value=0;
+
 
 
     public LeftMenuAdapter(Context context, int alayout, String facebookId, String facebookName) {
@@ -76,7 +77,9 @@ public class LeftMenuAdapter extends BaseAdapter {
         TextView pf_name = (TextView) convertView.findViewById(R.id.pf_name);
         TextView pf_id = (TextView) convertView.findViewById(R.id.pf_id);
         pf_img = (ImageView) convertView.findViewById(R.id.pf_img);
-
+        SharedPreferencesActivity pref = new SharedPreferencesActivity(maincon);
+        String Imagepath = pref.getPreferences("imagepath","");
+        int value=pref.getPreferences("value",1);
 
         pf_id.setText(Facebook_id);
         pf_name.setText(Facebook_name);
@@ -87,11 +90,15 @@ public class LeftMenuAdapter extends BaseAdapter {
           }
           if(value==1)
             {
-                //pf_img.setImageBitmap();
+                Bitmap bit = BitmapFactory.decodeFile(Imagepath);
+                bit=Bitmap.createScaledBitmap(bit,75,75,true);
+                pf_img.setImageBitmap(bit);
+                BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
+                pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
             }
         //이미지 둥글게
-       BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
-        pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
+       //BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
+        //pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
 
 
        return convertView;
@@ -136,22 +143,5 @@ public class LeftMenuAdapter extends BaseAdapter {
             }
         }
     };
-    class ImageChange
-    {
-        Bitmap bit_img;
-        int mValue=0;
-        public ImageChange(Bitmap bit, int value)
-        {
-            bit_img=bit;
-            mValue=value;
-        }
-        public int ChangeValue()
-        {
-            return mValue;
-        }
-        public Bitmap getImage()
-        {
-            return bit_img;
-        }
-    }
+
 }
