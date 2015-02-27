@@ -3,10 +3,10 @@
     package="dev.dain">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".GlobalVariable"
@@ -26,7 +26,12 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Dain" />
+            android:label="Dain">
+
+
+
+
+        </activity>
         <activity
             android:name=".SignupActivity"
             android:label="@string/signup"
@@ -61,7 +66,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-            </activity>
+        </activity>
         <activity
             android:name=".rating.ProductInfoActivity"
             android:label="@string/title_activity_product_info"></activity>
