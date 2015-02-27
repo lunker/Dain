@@ -21,6 +21,14 @@
         <item>사진앨범</item>
         <item>카메라</item>
     </string-array>
+    <string-array name="coffee_array">
+        <item>스타벅스</item>
+        <item>아메리카노</item>
+        <item>아이스아메리카노</item>
+        <item>카푸치노</item>
+        <item>카페베네</item>
+        <item>투썸플레이스</item>
+    </string-array>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>

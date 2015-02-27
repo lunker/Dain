@@ -1,10 +1,7 @@
 package dev.dain;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -13,15 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by davidha on 2015. 2. 27..
@@ -29,6 +24,8 @@ import java.util.ArrayList;
 public class SearchViewActivity extends ActionBarActivity {
     private ArrayList<SearchList> arItem;
     Toolbar toolbar = null;
+    List<String> mSideList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +49,8 @@ public class SearchViewActivity extends ActionBarActivity {
         SearchViewAdapter searchAdapter = new SearchViewAdapter(this, R.layout.searchview_list_item, arItem);
         ListView SearchList = (ListView) findViewById(R.id.searchview_list);
         SearchList.setAdapter(searchAdapter);
+
+        mSideList = Arrays.asList(getResources().getStringArray(R.array.coffee_array));
     }
 
     @Override
@@ -88,14 +87,12 @@ public class SearchViewActivity extends ActionBarActivity {
 
         @Override
         public boolean onQueryTextChange(String s) {
-            ArrayAdapter<CharSequence> Adapter;
-            Adapter=ArrayAdapter.createFromResource(SearchViewActivity.this,R.array.side_array,android.R.layout.simple_list_item_1);
-            TextView text =(TextView)findViewById(R.id.recommend);
-
 
             ListView SearchList = (ListView) findViewById(R.id.searchview_list);
-            SearchList.setAdapter(Adapter);
+
+            TextView text =(TextView)findViewById(R.id.recommend);
             text.setVisibility(View.GONE);
+
             if(TextUtils.isEmpty(s))
             {
 
@@ -104,10 +101,19 @@ public class SearchViewActivity extends ActionBarActivity {
             else
             {
                 SearchList.setVisibility(View.VISIBLE);
+                displayResult(s);
             }
             return true;
         }
     };
+    private void displayResult(String text)
+    {
+        String Text=text;
+        AutoSearchAdapter searchViewAdapter = new AutoSearchAdapter(SearchViewActivity.this,R.layout.searchview_list_item, mSideList,Text );
+        ListView SearchList = (ListView) findViewById(R.id.searchview_list);
+        SearchList.setAdapter(searchViewAdapter);
+        ((AutoSearchAdapter) SearchList.getAdapter()).notifyDataSetChanged();
+    }
 }
  class SearchList {
     String Text;

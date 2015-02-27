@@ -1,6 +1,7 @@
 package dev.dain;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,14 @@ public class SearchViewAdapter extends BaseAdapter {
     LayoutInflater Inflater;
     int layout;
 
+
     SearchViewAdapter(Context context,int alayout, ArrayList<SearchList> aarSrc)
     {
         maincon=context;
         Inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         arSrc=aarSrc;
         layout=alayout;
+
     }
 
     @Override
@@ -45,12 +48,34 @@ public class SearchViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos=position;
+        ViewHolder holder;
+
+
         if(convertView==null)
         {
+            holder=new ViewHolder();
+
             convertView= Inflater.inflate(layout,parent,false);
+           holder.iteName=(TextView) convertView.findViewById(R.id.search_text);
+            convertView.setTag(holder);
+        }else
+        {
+            holder=(ViewHolder) convertView.getTag();
         }
-        TextView txt=(TextView)convertView.findViewById(R.id.search_text);
-        txt.setText(arSrc.get(position).Text);
+
+        String stringItem = arSrc.get(position).Text;
+
+        if(stringItem!=null)
+        {
+            if(holder.iteName!=null)
+            {
+                holder.iteName.setText(stringItem);
+            }
+        }
+
         return convertView;
+    }
+    private static class ViewHolder{
+        protected TextView iteName;
     }
 }
