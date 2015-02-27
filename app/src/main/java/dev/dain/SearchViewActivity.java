@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by davidha on 2015. 2. 27..
  */
 public class SearchViewActivity extends ActionBarActivity {
-    ArrayList<SearchList> arItem;
+    private ArrayList<SearchList> arItem;
     Toolbar toolbar = null;
 
     @Override
@@ -29,10 +29,22 @@ public class SearchViewActivity extends ActionBarActivity {
         arItem = new ArrayList<SearchList>();
         SearchList sl;
         sl = new SearchList("스타벅스");
+        arItem.add(sl);
         sl = new SearchList("카페베네");
+        arItem.add(sl);
         sl = new SearchList("투썸플레이스");
+        arItem.add(sl);
+
         SearchViewAdapter searchAdapter = new SearchViewAdapter(this, R.layout.searchview_list_item, arItem);
         ListView SearchList = (ListView) findViewById(R.id.searchview_list);
         SearchList.setAdapter(searchAdapter);
+    }
+
+}
+ class SearchList {
+    String Text;
+    public SearchList(String mText)
+    {
+        Text=mText;
     }
 }

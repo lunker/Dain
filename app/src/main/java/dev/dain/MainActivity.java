@@ -266,10 +266,10 @@ public class MainActivity extends ActionBarActivity {
                     pf_bit.compress(Bitmap.CompressFormat.PNG, 100, fos);
                     fos.flush();
                     fos.close();
-                    Toast.makeText(this,"이미지 파일이 있습니다",0).show();
+
                 }catch (Exception e)
                 {
-                    Toast.makeText(this,"이미지 파일이 없습니다",0).show();
+                   
                 }
                 SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
                 pref.savePreferences("imagepath",path);
@@ -313,7 +313,7 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         if (dtToggle.onOptionsItemSelected(item))
             return true;
-        if(item.getItemId()==R.id.action_search)
+        if(item.getItemId()==R.id.search_icon)
         {
             Intent intent= new Intent(MainActivity.this,SearchViewActivity.class);
             startActivity(intent);
