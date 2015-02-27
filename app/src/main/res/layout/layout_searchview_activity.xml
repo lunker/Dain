@@ -12,6 +12,7 @@
         local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <TextView
+        android:id="@+id/recommend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

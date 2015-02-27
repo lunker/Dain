@@ -72,7 +72,11 @@
             android:label="@string/title_activity_product_info"></activity>
         <activity
             android:name=".SearchViewActivity"
-            android:label=""></activity>
+            android:label="">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+            </activity>
     </application>
 
 </manifest>

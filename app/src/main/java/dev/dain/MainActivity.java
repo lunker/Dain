@@ -269,7 +269,7 @@ public class MainActivity extends ActionBarActivity {
 
                 }catch (Exception e)
                 {
-                   
+
                 }
                 SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
                 pref.savePreferences("imagepath",path);
