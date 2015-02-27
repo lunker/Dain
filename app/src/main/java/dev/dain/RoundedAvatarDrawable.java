@@ -30,8 +30,8 @@ public class RoundedAvatarDrawable extends Drawable {
         final BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         mPaint.setShader(shader);
 
-        mBitmapWidth = mBitmap.getWidth();
-        mBitmapHeight = mBitmap.getHeight();
+        mBitmapWidth = 75;
+        mBitmapHeight = 75;
     }
 
     @Override

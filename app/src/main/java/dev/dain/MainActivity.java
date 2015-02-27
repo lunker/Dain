@@ -1,15 +1,20 @@
 package dev.dain;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -27,9 +32,19 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
+import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
     private BackPressCloseHandler backPressCloseHandler;
 
 
+    int value;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -105,6 +121,8 @@ public class MainActivity extends ActionBarActivity {
         pf_img = (ImageView) view.findViewById(R.id.pf_img);
 
 
+
+
         // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
         //mSideList = getResources().getStringArray(R.array.side_array);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -119,6 +137,7 @@ public class MainActivity extends ActionBarActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
@@ -188,7 +207,7 @@ public class MainActivity extends ActionBarActivity {
         //뒤로가기 버튼
 
         backPressCloseHandler = new BackPressCloseHandler(this);
-
+       // (new DownThread("https://graph.facebook.com/dhha22/picture?type=large")).start();
     }
 
     @Override
@@ -240,8 +259,25 @@ public class MainActivity extends ActionBarActivity {
         if (requestCode == PICK_FROM_ALBUM) {
 
             try {
-                pf_img.setImageBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData()));
-                ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
+                String path="data/data/dev.dain/files/profile.png";
+                value=1;
+
+                Bitmap pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                try {
+                    File file = new File("profile.png");
+                    FileOutputStream fos = openFileOutput("profile.png", 0);
+                    pf_bit.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                    fos.flush();
+                    fos.close();
+                    Toast.makeText(this,"이미지 파일이 있습니다",0).show();
+                }catch (Exception e)
+                {
+                    Toast.makeText(this,"이미지 파일이 없습니다",0).show();
+                }
+                SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
+                pref.savePreferences("imagepath",path);
+                pref.savePreferences("value",value);
+                ((LeftMenuAdapter) mDrawerList.getAdapter()).notifyDataSetChanged();
             } catch (Exception e) {
                 ;
             }
@@ -257,7 +293,7 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.dain, menu);
         return true;
     }
 
@@ -283,7 +319,8 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         dtToggle.onConfigurationChanged(newConfig);
     }
-    /*
+/*
+
 
 	private class DrawerItemClickListener implements
 			ListView.OnItemClickListener {
