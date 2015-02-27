@@ -259,7 +259,7 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                  pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
+                ((LeftMenuAdapter) mDrawerList.getAdapter()).notifyDataSetChanged();
             } catch (Exception e) {
                 ;
             }

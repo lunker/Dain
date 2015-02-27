@@ -41,6 +41,7 @@ public class LeftMenuAdapter extends BaseAdapter {
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     ImageView pf_img;
+    int value=0;
 
 
     public LeftMenuAdapter(Context context, int alayout, String facebookId, String facebookName) {
@@ -80,9 +81,14 @@ public class LeftMenuAdapter extends BaseAdapter {
         pf_id.setText(Facebook_id);
         pf_name.setText(Facebook_name);
 
-        (new DownThread("https://graph.facebook.com/"+Facebook_id+"/picture")).start();
-      
 
+          if(value==0) {
+              (new DownThread("https://graph.facebook.com/" + Facebook_id + "/picture?type=normal")).start();
+          }
+          if(value==1)
+            {
+                //pf_img.setImageBitmap();
+            }
         //이미지 둥글게
        BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
         pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
@@ -133,11 +139,19 @@ public class LeftMenuAdapter extends BaseAdapter {
     class ImageChange
     {
         Bitmap bit_img;
-        int mValue;
+        int mValue=0;
         public ImageChange(Bitmap bit, int value)
         {
             bit_img=bit;
             mValue=value;
+        }
+        public int ChangeValue()
+        {
+            return mValue;
+        }
+        public Bitmap getImage()
+        {
+            return bit_img;
         }
     }
 }
