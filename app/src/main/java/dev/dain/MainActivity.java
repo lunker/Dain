@@ -120,9 +120,6 @@ public class MainActivity extends ActionBarActivity {
         view =(View)getLayoutInflater().inflate(R.layout.left_menu_profile,null);
         pf_img = (ImageView) view.findViewById(R.id.pf_img);
 
-
-
-
         // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
         //mSideList = getResources().getStringArray(R.array.side_array);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);

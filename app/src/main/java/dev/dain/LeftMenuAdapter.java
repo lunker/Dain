@@ -90,11 +90,19 @@ public class LeftMenuAdapter extends BaseAdapter {
           }
           if(value==1)
             {
-                Bitmap bit = BitmapFactory.decodeFile(Imagepath);
-                bit=Bitmap.createScaledBitmap(bit,75,75,true);
-                pf_img.setImageBitmap(bit);
-                BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
-                pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
+
+                if(Imagepath.equals("")){
+                    pf_img.setImageResource(R.drawable.dain);
+                }
+                else {
+
+                    Bitmap bit = BitmapFactory.decodeFile(Imagepath);
+                    bit = Bitmap.createScaledBitmap(bit, 75, 75, true);
+                    pf_img.setImageBitmap(bit);
+                    BitmapDrawable bImage = (BitmapDrawable) (pf_img).getDrawable();
+                    pf_img.setImageDrawable(new RoundedAvatarDrawable(bImage.getBitmap()));
+
+                }
             }
         //이미지 둥글게
        //BitmapDrawable bImage = (BitmapDrawable)(pf_img).getDrawable();
