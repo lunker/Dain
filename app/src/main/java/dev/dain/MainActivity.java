@@ -291,10 +291,10 @@ public class MainActivity extends ActionBarActivity {
         inflater.inflate(R.menu.dain, menu);
 
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
+        //MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-
+        //SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
+        /*
         SearchView searchView = null;
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
@@ -302,6 +302,7 @@ public class MainActivity extends ActionBarActivity {
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
         }
+        */
         return super.onCreateOptionsMenu(menu);
 
 
@@ -313,6 +314,11 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         if (dtToggle.onOptionsItemSelected(item))
             return true;
+        if(item.getItemId()==R.id.action_search)
+        {
+            Intent intent= new Intent(MainActivity.this,SearchViewActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

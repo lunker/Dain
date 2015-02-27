@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical"
-        android:layout_below="@+id/background_img"
+        android:layout_below="@id/background_img"
         android:gravity="center"
         android:paddingTop="32dp"
         android:paddingBottom="32dp">
@@ -29,7 +29,7 @@
             android:onClick="mOnClick"
             android:src="@drawable/dain"
             android:layout_centerHorizontal="true"
-            android:layout_above="@+id/informations_container"
+            android:layout_above="@id/informations_container"
             android:layout_marginBottom="-16dp"
             android:layout_gravity="center_horizontal" />
 
@@ -52,63 +52,66 @@
             android:layout_gravity="center_vertical"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
+
         <TextView
             android:id="@+id/pf_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:text="UserId"
-            android:layout_below="@+id/pf_name"
+            android:layout_below="@id/pf_name"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true" />
 
         <TextView
+            android:id="@+id/notice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="공지사항"
-            android:layout_marginTop="36dp"
-            android:id="@+id/textView"
-            android:layout_below="@+id/pf_id"
-            android:layout_alignLeft="@+id/textView3" />
+            android:layout_marginLeft="33dp"
+            android:layout_alignTop="@+id/mypage"
+            android:layout_alignParentLeft="true" />
 
         <TextView
+            android:id="@+id/mypage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="마이페이지"
-            android:layout_toRightOf="@id/textView"
-            android:id="@+id/textView2"
-            android:layout_alignTop="@id/textView"
-            android:layout_alignRight="@+id/pf_name" />
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/pf_id"
+            android:layout_centerHorizontal="true" />
 
         <TextView
+            android:id="@+id/review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="상품리뷰작성"
-            android:id="@+id/textView4"
-            android:layout_alignTop="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2"
-            android:layout_marginLeft="29dp" />
+            android:layout_alignTop="@id/mypage"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="35dp" />
 
         <TextView
+            android:id="@+id/friends_evaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="내친구들 평가"
-            android:layout_marginTop="41dp"
-            android:id="@+id/textView3"
-            android:layout_below="@+id/textView"
-            android:layout_toLeftOf="@+id/pf_name" />
+            android:layout_alignTop="@+id/setting"
+            android:layout_alignLeft="@+id/notice" />
 
         <TextView
+            android:id="@+id/setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="설정"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignLeft="@+id/textView2" />
+            android:layout_marginTop="60dp"
+            android:layout_below="@id/mypage"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 </FrameLayout>

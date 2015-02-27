@@ -70,6 +70,9 @@
         <activity
             android:name=".rating.ProductInfoActivity"
             android:label="@string/title_activity_product_info"></activity>
+        <activity
+            android:name=".SearchViewActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>
