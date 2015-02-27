@@ -290,7 +290,6 @@ public class MainActivity extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dain, menu);
 
-
         //MenuItem searchItem = menu.findItem(R.id.action_search);
 
         //SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
