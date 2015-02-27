@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -94,6 +96,15 @@ public class SearchViewActivity extends ActionBarActivity {
             ListView SearchList = (ListView) findViewById(R.id.searchview_list);
             SearchList.setAdapter(Adapter);
             text.setVisibility(View.GONE);
+            if(TextUtils.isEmpty(s))
+            {
+
+                SearchList.setVisibility(View.GONE);
+            }
+            else
+            {
+                SearchList.setVisibility(View.VISIBLE);
+            }
             return true;
         }
     };
