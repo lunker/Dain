@@ -282,9 +282,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub

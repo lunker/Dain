@@ -36,6 +36,13 @@ public class SmsReceiver extends BroadcastReceiver {
             // 부팅완료
         }
 
+
+        /*
+
+
+        문자 오고나서 화면 꺼졌을때 팝업 띄우도록  !
+         */
+
         if ("android.provider.Telephony.SMS_RECEIVED".equals(intent.getAction())) {
             // sms 수신
 
@@ -83,7 +90,6 @@ public class SmsReceiver extends BroadcastReceiver {
 
         }
     }// end receive
-
 
     public void makeNotification(){
         Log.v(TAG,"in make noti");
