@@ -1,5 +1,6 @@
 package dev.dain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -10,9 +11,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class SearchViewActivity extends ActionBarActivity {
     private ArrayList<SearchList> arItem;
     Toolbar toolbar = null;
     List<String> mSideList;
-
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,24 +62,24 @@ public class SearchViewActivity extends ActionBarActivity {
         inflater.inflate(R.menu.search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.expandActionView();
-        SearchView searchView=(SearchView)menu.findItem(R.id.action_search).getActionView();
+
+        searchView = (SearchView)searchItem.getActionView();
         searchView.setQueryHint("검색어를 입력하세요");
         searchView.setOnQueryTextListener(queryTextListener);
-        searchView.setIconifiedByDefault(true);
-
-
+        searchView.setIconifiedByDefault(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
+
         return false;
     }
+
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String s) {
@@ -90,35 +91,38 @@ public class SearchViewActivity extends ActionBarActivity {
 
             ListView SearchList = (ListView) findViewById(R.id.searchview_list);
 
-            TextView text =(TextView)findViewById(R.id.recommend);
+            TextView text = (TextView) findViewById(R.id.recommend);
             text.setVisibility(View.GONE);
 
-            if(TextUtils.isEmpty(s))
-            {
+            if (TextUtils.isEmpty(s)) {
 
                 SearchList.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 SearchList.setVisibility(View.VISIBLE);
                 displayResult(s);
             }
             return true;
         }
     };
-    private void displayResult(String text)
-    {
-        String Text=text;
-        AutoSearchAdapter searchViewAdapter = new AutoSearchAdapter(SearchViewActivity.this,R.layout.searchview_list_item, mSideList,Text );
+
+    private void displayResult(String text) {
+        String Text = text;
+        AutoSearchAdapter searchViewAdapter = new AutoSearchAdapter(SearchViewActivity.this, R.layout.searchview_list_item, mSideList, Text);
         ListView SearchList = (ListView) findViewById(R.id.searchview_list);
         SearchList.setAdapter(searchViewAdapter);
         ((AutoSearchAdapter) SearchList.getAdapter()).notifyDataSetChanged();
     }
+
+    @Override
+    public void onBackPressed() {
+        SearchViewActivity.this.finish();
+    }
 }
- class SearchList {
+
+class SearchList {
     String Text;
-    public SearchList(String mText)
-    {
-        Text=mText;
+
+    public SearchList(String mText) {
+        Text = mText;
     }
 }
