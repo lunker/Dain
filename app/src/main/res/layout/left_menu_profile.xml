@@ -11,15 +11,11 @@
         android:scaleType="centerCrop"
         android:adjustViewBounds="true" />
 
-    <LinearLayout
-        android:id="@+id/informations_container"
+
+    <RelativeLayout
+
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:layout_below="@id/background_img"
-        android:gravity="center"
-        android:paddingTop="32dp"
-        android:paddingBottom="32dp">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -29,89 +25,88 @@
             android:onClick="mOnClick"
             android:src="@drawable/dain"
             android:layout_centerHorizontal="true"
-            android:layout_above="@id/informations_container"
+            android:layout_marginTop="120dp"
             android:layout_marginBottom="-16dp"
             android:layout_gravity="center_horizontal" />
 
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/pf_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="217dp"
+                android:gravity="center"
+                android:text="UserName"
+                android:textSize="20dp"
+                android:textColor="#FF707070"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/pf_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="UserId"
+                android:layout_below="@id/pf_name"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/pf_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="217dp"
-            android:gravity="center"
-            android:text="UserName"
-            android:textSize="20dp"
-            android:textColor="#FF707070"
-            android:layout_gravity="center_vertical"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="공지사항"
+                android:onClick="mOnClick"
+                android:clickable="true"
+                android:layout_marginLeft="33dp"
+                android:layout_alignTop="@+id/mypage"
+                android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/pf_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="UserId"
-            android:layout_below="@id/pf_name"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/mypage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="마이페이지"
+                android:gravity="center"
+                android:layout_marginTop="40dp"
+                android:layout_below="@id/pf_id"
+                android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/notice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="공지사항"
-            android:layout_marginLeft="33dp"
-            android:layout_alignTop="@+id/mypage"
-            android:layout_alignParentLeft="true" />
+            <TextView
+                android:id="@+id/review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="상품리뷰작성"
+                android:layout_alignTop="@id/mypage"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="35dp" />
 
-        <TextView
-            android:id="@+id/mypage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="마이페이지"
-            android:gravity="center"
-            android:layout_marginTop="40dp"
-            android:layout_below="@id/pf_id"
-            android:layout_centerHorizontal="true" />
+            <TextView
+                android:id="@+id/friends_evaluation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="내친구들 평가"
+                android:layout_alignTop="@+id/setting"
+                android:layout_alignLeft="@+id/notice" />
 
-        <TextView
-            android:id="@+id/review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="상품리뷰작성"
-            android:layout_alignTop="@id/mypage"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="35dp" />
+            <TextView
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:text="설정"
+                android:layout_marginTop="60dp"
+                android:layout_below="@id/mypage"
+                android:layout_centerHorizontal="true" />
 
-        <TextView
-            android:id="@+id/friends_evaluation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="내친구들 평가"
-            android:layout_alignTop="@+id/setting"
-            android:layout_alignLeft="@+id/notice" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="10dp"
-            android:text="설정"
-            android:layout_marginTop="60dp"
-            android:layout_below="@id/mypage"
-            android:layout_centerHorizontal="true" />
 
-    </RelativeLayout>
+
 </FrameLayout>

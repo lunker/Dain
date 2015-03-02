@@ -76,14 +76,14 @@ public class SearchViewActivity extends ActionBarActivity {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
-
         return false;
     }
 
     private SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String s) {
-            return false;
+
+            return true;
         }
 
         @Override

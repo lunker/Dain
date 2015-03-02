@@ -21,6 +21,7 @@
         <item>사진앨범</item>
         <item>카메라</item>
     </string-array>
+
     <string-array name="coffee_array">
         <item>스타벅스</item>
         <item>아메리카노</item>

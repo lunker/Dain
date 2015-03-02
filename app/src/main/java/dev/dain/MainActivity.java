@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -97,6 +98,7 @@ public class MainActivity extends ActionBarActivity {
 
     ImageView pf_img;
     View view;
+    TextView notice;
 
     private BackPressCloseHandler backPressCloseHandler;
 
@@ -213,6 +215,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void mOnClick(View v) {
+
         if (v.getId() == R.id.pf_img) {
             new AlertDialog.Builder(this)
                     .setTitle("사진선택").setItems(R.array.select_picture, new DialogInterface.OnClickListener() {
@@ -229,6 +232,12 @@ public class MainActivity extends ActionBarActivity {
                 }
             }).show();
 
+        }
+
+        if(v.getId()==R.id.notice)
+        {
+            Intent intent = new Intent(MainActivity.this, NoticeActivity.class);
+            startActivity(intent);
         }
     }
 

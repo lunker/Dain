@@ -13,6 +13,7 @@ import android.os.Message;
 import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -73,6 +74,12 @@ public class LeftMenuAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         convertView = Inflater.inflate(layout, parent, false);
+        convertView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         TextView pf_name = (TextView) convertView.findViewById(R.id.pf_name);
         TextView pf_id = (TextView) convertView.findViewById(R.id.pf_id);
