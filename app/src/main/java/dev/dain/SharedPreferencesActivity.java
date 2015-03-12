@@ -31,6 +31,20 @@ public class SharedPreferencesActivity {
         editor.putInt(key,value);
         editor.commit();
     }
+
+    public void savePreferences(String key, String[] array)
+    {
+        SharedPreferences pref = mContext.getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putInt("array_size",array.length);
+        for(int i=0; i<array.length; i++)
+        {
+            editor.putString(key+i,array[i]);
+        }
+        editor.commit();
+    }
+
     public String getPreferences(String key, String path)
     {
         SharedPreferences pref = mContext.getSharedPreferences("pref",Activity.MODE_PRIVATE);
@@ -49,6 +63,24 @@ public class SharedPreferencesActivity {
         }catch (Exception e)
         {
             return value;
+        }
+    }
+    public String[] getPreferences(String key)
+    {
+        String[] array=null;
+
+        SharedPreferences pref = mContext.getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        try {
+            int size=pref.getInt("array_size",0);
+            array=new String[size];
+            for(int i=0; i<size; i++)
+            {
+                array[i]=pref.getString(key+i,null);
+            }
+            return array;
+        }catch (Exception e)
+        {
+            return array;
         }
     }
 

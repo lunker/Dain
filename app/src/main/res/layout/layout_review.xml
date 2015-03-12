@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-</LinearLayout>
+    <android.support.v7.widget.Toolbar xmlns:local="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/review_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/primary"
+        android:elevation="2dp"
+        local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    <Spinner
+        android:id="@+id/review_spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:layout_below="@id/review_toolbar"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_gravity="center"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="#FFF"
+        android:layout_below="@id/review_spinner"
+        android:layout_alignLeft="@id/review_spinner" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색"
+        android:layout_alignBottom="@+id/edit_search"
+        android:layout_toRightOf="@+id/edit_search" />
+</RelativeLayout>

@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import dev.dain.R;
+import dev.dain.SharedPreferencesActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +57,13 @@ public class HomeFragment extends Fragment{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //SharedPreference 호출
+        SharedPreferencesActivity pref = new SharedPreferencesActivity(this.getActivity());
+        String[] friends_id=pref.getPreferences("friends_id");
+        String[] friends_name=pref.getPreferences("friends_names");
+        Toast.makeText(this.getActivity(),friends_name[0],Toast.LENGTH_LONG).show();
+
     }
 
     @Override

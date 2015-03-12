@@ -6,8 +6,15 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="home fragment" />
+        android:id="@+id/facebook_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="페이스북 아이디" />
+    <TextView
+        android:id="@+id/facebook_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="페이스북 이름" />
 
 </FrameLayout>

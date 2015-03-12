@@ -56,25 +56,8 @@ import dev.dain.library.ViewPagerAdapter;
 import dev.dain.sms.SmsReceiver;
 
 public class MainActivity extends ActionBarActivity {
-    MenuItem mSearch;
-    TabHost mTab;
 
-    DrawerLayout mDrawerLayout; // 주기능
     ListView mDrawerList; // 내용
-    ActionBarDrawerToggle mDrawToggle; // 주기능
-    FrameLayout contentMain;
-    // CharSequence mDrawerTitle; // ActionBar의 제목을 변경하기 위한 변수
-    // CharSequence mTitle; // ActionBar의 제목을 변경하기 위한 변수
-    String[] mSideList; // 사이드 내용
-
-    ExpandableListView mList;
-    String[] arCafe = new String[]{"StarBucks", "카페베네", "망고식스", "투썸플레이스",
-            "커피빈"};
-    String[][] arDetails = new String[][]{{"음료", "푸드", "전체보기", "베스트10평가"},
-            {"음료", "푸드", "전체보기", "베스트10평가"},
-            {"음료", "푸드", "전체보기", "베스트10평가"},
-            {"음료", "푸드", "전체보기", "베스트10평가"},
-            {"음료", "푸드", "전체보기", "베스트10평가"}};
 
 
     private Toolbar toolbar = null;
@@ -92,46 +75,52 @@ public class MainActivity extends ActionBarActivity {
 
     String Facebook_id;
     String Facebook_name;
+    String[] Facebook_friends_names;
+    String[] Facebook_friends_id;
+    int friends_size;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
 
     ImageView pf_img;
     View view;
-    TextView notice;
 
     private BackPressCloseHandler backPressCloseHandler;
 
 
     int value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
 
-        //facebook_Id
+        //facebook_Id & NAME
         Intent intent = getIntent();
         Facebook_id = intent.getStringExtra("facebookId");
         Facebook_name = intent.getStringExtra("facebookName");
-        //
+        //facebook friend list
+        ArrayList<FacebookFriends> list = (ArrayList<FacebookFriends>) getIntent().getSerializableExtra("facebookFriends");
+        Facebook_friends_id = new String[list.size()];
+        Facebook_friends_names = new String[list.size()];
 
-       // LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View view = inflater.inflate(R.layout.left_menu_profile, null);
+        //list값을 각각 string배열에 저장 id,name 분리시킴
+        for (int i = 0; i < list.size(); i++) {
+            Facebook_friends_id[i] = list.get(i).getFriend_ID();
+            Facebook_friends_names[i] = list.get(i).getFriend_NAME();
+        }
 
-        view =(View)getLayoutInflater().inflate(R.layout.left_menu_profile,null);
-        pf_img = (ImageView) view.findViewById(R.id.pf_img);
+        //분리된 string배열을 SharedPreference에 저장
+        SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
+        pref.savePreferences("friends_names", Facebook_friends_names);
+        pref.savePreferences("friends_id", Facebook_friends_id);
 
-        // mTitle = mDrawerTitle = getTitle(); // 액션바 제목
-        //mSideList = getResources().getStringArray(R.array.side_array);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-//		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 
         LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this, R.layout.left_menu_profile, Facebook_id, Facebook_name);
         mDrawerList.setAdapter(leftmenuadapter);
-        //mDrawerList.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-        //		R.layout.left_menu_profile, mSideList));
-//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -179,34 +168,10 @@ public class MainActivity extends ActionBarActivity {
 
         registerReceiver(smsReceiver, intentFilter);
 
-        mList = (ExpandableListView) findViewById(R.id.list);
-        List<Map<String, String>> cafeData = new ArrayList<Map<String, String>>();
-        List<List<Map<String, String>>> detailData = new ArrayList<List<Map<String, String>>>();
 
-        for (int i = 0; i < arCafe.length; i++) {
-            Map<String, String> Cafe = new HashMap<String, String>();
-            Cafe.put("cafe", arCafe[i]);
-            cafeData.add(Cafe);
-
-            List<Map<String, String>> children = new ArrayList<Map<String, String>>();
-
-            for (int j = 0; j < arDetails[i].length; j++) {
-                Map<String, String> Details = new HashMap<String, String>();
-                Details.put("details", arDetails[i][j]);
-                children.add(Details);
-            }
-            detailData.add(children);
-        }
-        ExpandableListAdapter adapter = new SimpleExpandableListAdapter(this,
-                cafeData, android.R.layout.simple_list_item_1,
-                new String[]{"cafe"}, new int[]{android.R.id.text1},
-                detailData, android.R.layout.simple_expandable_list_item_1,
-                new String[]{"details"}, new int[]{android.R.id.text1});
-//		mList.setAdapter(adapter);
         //뒤로가기 버튼
 
         backPressCloseHandler = new BackPressCloseHandler(this);
-       // (new DownThread("https://graph.facebook.com/dhha22/picture?type=large")).start();
     }
 
     @Override
@@ -234,9 +199,13 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-        if(v.getId()==R.id.notice)
-        {
+        if (v.getId() == R.id.notice) {
             Intent intent = new Intent(MainActivity.this, NoticeActivity.class);
+            startActivity(intent);
+        }
+
+        if (v.getId() == R.id.review) {
+            Intent intent = new Intent(MainActivity.this, ReviewActivity.class);
             startActivity(intent);
         }
     }
@@ -259,16 +228,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PICK_FROM_CAMERA) {
-            pf_img.setImageBitmap((Bitmap)data.getExtras().get("data"));
-            ((LeftMenuAdapter)mDrawerList.getAdapter()).notifyDataSetChanged();
+            pf_img.setImageBitmap((Bitmap) data.getExtras().get("data"));
+            ((LeftMenuAdapter) mDrawerList.getAdapter()).notifyDataSetChanged();
         }
         if (requestCode == PICK_FROM_ALBUM) {
 
             try {
-                String path="data/data/dev.dain/files/profile.png";
-                value=1;
+                String path = "data/data/dev.dain/files/profile.png";
+                value = 1;
 
-                Bitmap pf_bit=MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                Bitmap pf_bit = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                 try {
                     File file = new File("profile.png");
                     FileOutputStream fos = openFileOutput("profile.png", 0);
@@ -276,13 +245,12 @@ public class MainActivity extends ActionBarActivity {
                     fos.flush();
                     fos.close();
 
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
 
                 }
                 SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
-                pref.savePreferences("imagepath",path);
-                pref.savePreferences("value",value);
+                pref.savePreferences("imagepath", path);
+                pref.savePreferences("value", value);
                 ((LeftMenuAdapter) mDrawerList.getAdapter()).notifyDataSetChanged();
             } catch (Exception e) {
                 ;
@@ -298,21 +266,7 @@ public class MainActivity extends ActionBarActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dain, menu);
-
-        //MenuItem searchItem = menu.findItem(R.id.action_search);
-
-        //SearchManager searchManager = (SearchManager) MainActivity.this.getSystemService(Context.SEARCH_SERVICE);
-        /*
-        SearchView searchView = null;
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(MainActivity.this.getComponentName()));
-        }
-        */
         return super.onCreateOptionsMenu(menu);
-
 
 
     }
@@ -322,9 +276,8 @@ public class MainActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         if (dtToggle.onOptionsItemSelected(item))
             return true;
-        if(item.getItemId()==R.id.search_icon)
-        {
-            Intent intent= new Intent(MainActivity.this,SearchViewActivity.class);
+        if (item.getItemId() == R.id.search_icon) {
+            Intent intent = new Intent(MainActivity.this, SearchViewActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -344,27 +297,6 @@ public class MainActivity extends ActionBarActivity {
         super.onConfigurationChanged(newConfig);
         dtToggle.onConfigurationChanged(newConfig);
     }
-/*
 
-
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> adapter, View view,
-				int position, long id) {
-			// TODO Auto-generated method stub
-			switch (position) {
-			case 0:
-				contentMain.setBackgroundColor(Color.parseColor("#A52A2A"));
-				break;
-			case 1:
-				contentMain.setBackgroundColor(Color.parseColor("#5F9EA0"));
-				break;
-
-			}
-			mDrawerLayout.closeDrawer(mDrawerList);
-		}
-	}
-	*/
 
 }

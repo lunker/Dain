@@ -84,6 +84,13 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity"/>
         </activity>
+        <activity
+            android:name=".ReviewActivity"
+            android:label="리뷰작성하기">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

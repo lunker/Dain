@@ -82,6 +82,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
                 android:text="상품리뷰작성"
+                android:clickable="true"
+                android:onClick="mOnClick"
                 android:layout_alignTop="@id/mypage"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="35dp" />
