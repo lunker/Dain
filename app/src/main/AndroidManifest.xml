@@ -27,10 +27,6 @@
         <activity
             android:name=".MainActivity"
             android:label="Dain">
-
-
-
-
         </activity>
         <activity
             android:name=".SignupActivity"
@@ -75,22 +71,26 @@
             android:label="">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
-            </activity>
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".NoticeActivity"
             android:label="공지사항">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ReviewActivity"
             android:label="리뷰작성하기">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
     </application>
 
 </manifest>
