@@ -47,28 +47,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="90dp"
+            android:orientation="vertical"
             android:gravity="center" >
 
-
-            <Button 
-                android:id="@+id/kakao_login"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="Log in kakao"/>
 
 
             <com.facebook.widget.LoginButton
                 android:id="@+id/authButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-<!--
             <Button
                 android:id="@+id/sign_up"
+                android:layout_marginTop="10dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="회원가입" />
-                -->
+
         </LinearLayout>
     </LinearLayout>
 

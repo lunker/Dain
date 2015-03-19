@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
     EditText user_pw;
     Button email_login;
     Button sign_up;
-    private Button kakao_loginButton;
+
     public static Activity AActivity;
 
     private enum PendingAction {
@@ -88,7 +88,7 @@ public class LoginActivity extends Activity {
         uiHelper.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-/*
+
         user_id = (EditText) findViewById(R.id.user_id);
         user_pw = (EditText) findViewById(R.id.user_pw);
         email_login = (Button) findViewById(R.id.email_login);
@@ -98,7 +98,7 @@ public class LoginActivity extends Activity {
         user_pw.setOnClickListener(listener);
         email_login.setOnClickListener(listener);
         sign_up.setOnClickListener(listener);
-*/
+
         facebook_login = (LoginButton) findViewById(R.id.authButton);
         facebook_login.setReadPermissions(Arrays.asList("user_friends"));
         facebook_login
@@ -111,7 +111,7 @@ public class LoginActivity extends Activity {
                         updateUI();
                     }
                 });
-        kakao_loginButton=(Button)findViewById(R.id.kakao_login);
+
 
         backPressCloseHandler = new BackPressCloseHandler(this);
         AActivity = LoginActivity.this;
@@ -121,7 +121,7 @@ public class LoginActivity extends Activity {
     public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
     }
-/*
+
     private OnClickListener listener = new OnClickListener() {
 
         @Override
@@ -134,7 +134,7 @@ public class LoginActivity extends Activity {
 
         }
     };
-    */
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
