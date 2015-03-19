@@ -38,21 +38,17 @@ public class LeftMenuAdapter extends BaseAdapter {
     LayoutInflater Inflater;
     int layout;
     View profileView;
-    String Facebook_id;
-    String Facebook_name;
+
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     ImageView pf_img;
 
 
 
-    public LeftMenuAdapter(Context context, int alayout, String facebookId, String facebookName) {
+    public LeftMenuAdapter(Context context, int alayout) {
         maincon = context;
         Inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layout = alayout;
-        Facebook_id = facebookId;
-        Facebook_name = facebookName;
-
     }
 
     @Override
@@ -87,6 +83,8 @@ public class LeftMenuAdapter extends BaseAdapter {
         SharedPreferencesActivity pref = new SharedPreferencesActivity(maincon);
         String Imagepath = pref.getPreferences("imagepath","");
         int value=pref.getPreferences("value",1);
+        String Facebook_id=pref.getPreferences("facebookId","");
+        String Facebook_name=pref.getPreferences("facebookName","");
 
         pf_id.setText(Facebook_id);
         pf_name.setText(Facebook_name);

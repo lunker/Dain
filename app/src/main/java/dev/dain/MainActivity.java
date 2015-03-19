@@ -73,11 +73,6 @@ public class MainActivity extends ActionBarActivity {
 
     private SmsReceiver smsReceiver = null;
 
-    String Facebook_id;
-    String Facebook_name;
-    String[] Facebook_friends_names;
-    String[] Facebook_friends_id;
-    int friends_size;
 
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
@@ -96,30 +91,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_activity_main);
 
-        //facebook_Id & NAME
-        Intent intent = getIntent();
-        Facebook_id = intent.getStringExtra("facebookId");
-        Facebook_name = intent.getStringExtra("facebookName");
-        //facebook friend list
-        ArrayList<FacebookFriends> list = (ArrayList<FacebookFriends>) getIntent().getSerializableExtra("facebookFriends");
-        Facebook_friends_id = new String[list.size()];
-        Facebook_friends_names = new String[list.size()];
-
-        //list값을 각각 string배열에 저장 id,name 분리시킴
-        for (int i = 0; i < list.size(); i++) {
-            Facebook_friends_id[i] = list.get(i).getFriend_ID();
-            Facebook_friends_names[i] = list.get(i).getFriend_NAME();
-        }
-
-        //분리된 string배열을 SharedPreference에 저장
-        SharedPreferencesActivity pref = new SharedPreferencesActivity(MainActivity.this);
-        pref.savePreferences("friends_names", Facebook_friends_names);
-        pref.savePreferences("friends_id", Facebook_friends_id);
-
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
 
-        LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this, R.layout.left_menu_profile, Facebook_id, Facebook_name);
+        LeftMenuAdapter leftmenuadapter = new LeftMenuAdapter(this, R.layout.left_menu_profile);
         mDrawerList.setAdapter(leftmenuadapter);
 
 

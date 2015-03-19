@@ -46,6 +46,8 @@ public class LoginActivity extends Activity {
     EditText user_pw;
     Button email_login;
     Button sign_up;
+    String[] Facebook_friends_names;
+    String[] Facebook_friends_id;
 
     public static Activity AActivity;
 
@@ -197,34 +199,38 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onCompleted(Response response) {
 
-                    ArrayList<FacebookFriends> FacebookFriendList = new ArrayList<FacebookFriends>();
+
                     GraphObject graphObject = response.getGraphObject();
                     if (graphObject != null) {
                         JSONObject jsonObject = graphObject.getInnerJSONObject();
                         try {
                             JSONArray array = jsonObject.getJSONArray("data");
-                            FacebookFriends f;
-                            for (int i = 0; i < array.length(); i++) {
-                                f = new FacebookFriends();
-                                JSONObject object = (JSONObject) array.get(i);
-                                f.setFriend_ID(String.valueOf(object.get("id")));
-                                f.setFriend_NAME(String.valueOf(object.get("name")));
-                                FacebookFriendList.add(f);
 
+                            Facebook_friends_id = new String[array.length()];
+                            Facebook_friends_names = new String[array.length()];
+
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject object = (JSONObject) array.get(i);
+                                Facebook_friends_id[i] = String.valueOf(object.get("id"));
+                                Facebook_friends_names[i] = String.valueOf(object.get("name"));
                             }
                         } catch (JSONException e) {
 
                         }
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("facebookId", user.getId());
-                    intent.putExtra("facebookName", user.getName());
-                    intent.putExtra("facebookFriends",FacebookFriendList);  //페이스북 친구 인텐트로 넘김
-                    startActivity(intent);
+                    SharedPreferencesActivity pref = new SharedPreferencesActivity(LoginActivity.this);
+                    pref.savePreferences("facebookId", user.getId());
+                    pref.savePreferences("facebookName", user.getName());
+                    pref.savePreferences("friends_names", Facebook_friends_names);
+                    pref.savePreferences("friends_id", Facebook_friends_id);
+
                 }
             });
             r.executeAsync();
 
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
 
         }
 

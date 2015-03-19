@@ -62,7 +62,11 @@ public class HomeFragment extends Fragment{
         SharedPreferencesActivity pref = new SharedPreferencesActivity(this.getActivity());
         String[] friends_id=pref.getPreferences("friends_id");
         String[] friends_name=pref.getPreferences("friends_names");
-        Toast.makeText(this.getActivity(),friends_name[0],Toast.LENGTH_LONG).show();
+
+        String test_name="";
+        for(int i=0; i<friends_name.length; i++)
+            test_name+=friends_name[i]+" ";
+        Toast.makeText(this.getActivity(),test_name,Toast.LENGTH_LONG).show();
 
     }
 
